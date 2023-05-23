@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, Matches } from 'class-validator';
+import { IsString, Matches } from 'class-validator';
 
 export class AuthChangePasswordUserDto {
   @ApiProperty()
-  @IsEmail()
-  email: string;
+  @IsString()
+  username: string;
 
   @ApiProperty({
     description:

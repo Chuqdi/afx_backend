@@ -4,6 +4,10 @@ import { IsEmail, IsString, Matches } from 'class-validator';
 export class AuthRegisterUserDto {
   @ApiProperty()
   @IsString()
+  username: string;
+
+  @ApiProperty()
+  @IsString()
   name: string;
 
   @ApiProperty()
