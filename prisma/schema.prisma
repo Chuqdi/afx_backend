@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  cognitoId String @unique
+
+  onboarded      Boolean  @default(false)
+  firstName      String
+  lastName       String
+  birthday       DateTime
+  pronoun        String
+  occupation     String
+  mentoringVoice String
+  attractPeople  String
+  anxietries     String[]
+  interests      String[]
+
+  goals        Goal[]
+  challenges   Challenge[]
+  achievements Achievement[]
+  feedbacks    Feedback[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("users")
+}
+
+model Goal {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  user    User     @relation(fields: [userId], references: [id])
+  userId  String   @db.ObjectId
+  content String
+  startAt DateTime
+  endAt   DateTime
+
+  affirmations Affirmation[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("goals")
+}
+
+model Affirmation {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  goal     Goal     @relation(fields: [goalId], references: [id])
+  goalId   String   @db.ObjectId
+  name     String
+  quote    String
+  duration Int
+  done     Boolean?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("affirmations")
+}
+
+model Challenge {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String @db.ObjectId
+  name        String
+  description String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("challenges")
+}
+
+model Achievement {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  user          User   @relation(fields: [userId], references: [id])
+  userId        String @db.ObjectId
+  streak        Int
+  longestStreak Int
+  completed     Int
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("achievements")
+}
+
+model Feedback {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @db.ObjectId
+  content String
+  rating  Int
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("feedbacks")
+}

@@ -14,13 +14,14 @@ import { AuthConfirmPasswordUserDto } from './dtos/auth-confirm-password-user.dt
 import { AuthForgotPasswordUserDto } from './dtos/auth-forgot-password-user.dto';
 import { AuthRegisterUserDto } from './dtos/auth-register-user.dto';
 import { AuthRefreshSessionUserDto } from './dtos/auth-refresh-session-user.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AwsCognitoService {
   private userPool: CognitoUserPool;
   logger = new Logger(AwsCognitoService.name);
 
-  constructor() {
+  constructor(private readonly usersService: UsersService) {
     this.userPool = new CognitoUserPool({
       UserPoolId: process.env.AWS_COGNITO_USER_POOL_ID,
       ClientId: process.env.AWS_COGNITO_CLIENT_ID,
@@ -54,7 +55,7 @@ export class AwsCognitoService {
           if (!result) {
             reject(err);
           } else {
-            resolve(result.user);
+            resolve(result.user.getUsername());
           }
         },
       );
@@ -81,7 +82,16 @@ export class AwsCognitoService {
           if (!result) {
             reject(err);
           } else {
-            resolve(result.user);
+            this.usersService
+              .create({
+                cognitoId: username,
+              })
+              .then((result) => {
+                resolve(result);
+              })
+              .catch((err) => {
+                reject(err);
+              });
           }
         },
       );
@@ -122,6 +132,7 @@ export class AwsCognitoService {
   }
 
   async authenticateUser(authLoginUserDto: AuthLoginUserDto) {
+    const allowedAttributes = ['email_verified', 'email'];
     const { username, password } = authLoginUserDto;
     const userData = {
       Username: username,
@@ -134,7 +145,6 @@ export class AwsCognitoService {
     });
 
     const userCognito = new CognitoUser(userData);
-
     return new Promise((resolve, reject) => {
       userCognito.authenticateUser(authenticationDetails, {
         onSuccess: (session) => {
@@ -143,13 +153,25 @@ export class AwsCognitoService {
               reject(err);
               return;
             }
-            resolve({
-              accessToken: session.getAccessToken().getJwtToken(),
-              refreshToken: session.getRefreshToken().getToken(),
-              information: userAttributes.reduce((user, currentAttr) => {
-                user[currentAttr.Name] = currentAttr.Value;
-                return user;
-              }, {}),
+
+            this.usersService.findOneByCognitoId(username).then((result) => {
+              if (result.success) {
+                resolve({
+                  accessToken: session.getAccessToken().getJwtToken(),
+                  refreshToken: session.getRefreshToken().getToken(),
+                  information: {
+                    userId: result.data.id,
+                    ...userAttributes.reduce((user, currentAttr) => {
+                      if (allowedAttributes.includes(currentAttr.Name)) {
+                        user[currentAttr.Name] = currentAttr.Value;
+                      }
+                      return user;
+                    }, {}),
+                  },
+                });
+              } else {
+                reject(result);
+              }
             });
           });
         },
