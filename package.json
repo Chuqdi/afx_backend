@@ -15,6 +15,7 @@
     "start:prod": "dotenv -e .env -- node dist/main",
     "lint": "eslint \"{src,apps,libs}/**/*.ts\" --fix",
     "db:push:dev": "dotenv -e .env.development -- npx prisma db push",
+    "db:seed:dev": "dotenv -e .env -- ts-node prisma/seed.ts",
     "db:studio:dev": "dotenv -e .env.development -- npx prisma studio",
     "db:push:prod": "dotenv -e .env -- npx prisma db push",
     "db:studio:prod": "dotenv -e .env -- npx prisma studio"
@@ -30,8 +31,10 @@
     "amazon-cognito-identity-js": "^6.2.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "dayjs": "^1.11.7",
     "dotenv-cli": "^7.2.1",
     "jwks-rsa": "^3.0.1",
+    "nestjs-prisma": "^0.20.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",

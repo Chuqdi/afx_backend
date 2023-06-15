@@ -1,12 +1,12 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'nestjs-prisma';
+import { errorResponse, successResponse } from 'src/common/helpers/http.helper';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/common/db/prisma.service';
-import { errorResponse, successResponse } from 'src/common/helpers/http.helper';
+import * as dayjs from 'dayjs';
 
 @Injectable()
 export class UsersService {
-  private logger = new Logger(UsersService.name);
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -27,8 +27,7 @@ export class UsersService {
       });
       return successResponse(newUser);
     } catch (error) {
-      this.logger.error(error);
-      return errorResponse();
+      return errorResponse(error);
     }
   }
 
@@ -43,8 +42,7 @@ export class UsersService {
       });
       return successResponse(user);
     } catch (error) {
-      this.logger.error(error);
-      return errorResponse('No user found with that id');
+      return errorResponse(error);
     }
   }
 
@@ -56,8 +54,7 @@ export class UsersService {
       });
       return successResponse(user);
     } catch (error) {
-      this.logger.error(error);
-      return errorResponse('No user found with that cognitoId');
+      return errorResponse(error);
     }
   }
 
@@ -67,13 +64,12 @@ export class UsersService {
         where: { id: id },
         data: {
           ...updateUserDto,
-          birthday: new Date(updateUserDto.birthday),
+          birthday: dayjs(updateUserDto.birthday).toDate(),
         },
       });
       return successResponse(updatedUser);
     } catch (error) {
-      this.logger.error(error);
-      return errorResponse();
+      return errorResponse(error);
     }
   }
 }

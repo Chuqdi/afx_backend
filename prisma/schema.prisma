@@ -29,6 +29,7 @@ model User {
   challenges   Challenge[]
   achievements Achievement[]
   feedbacks    Feedback[]
+  affirmations Affirmation[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -45,8 +46,6 @@ model Goal {
   startAt DateTime
   endAt   DateTime
 
-  affirmations Affirmation[]
-
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -54,15 +53,67 @@ model Goal {
   @@map("goals")
 }
 
-model Affirmation {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+model Package {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  audio       String
 
-  goal     Goal     @relation(fields: [goalId], references: [id])
-  goalId   String   @db.ObjectId
-  name     String
-  quote    String
-  duration Int
-  done     Boolean?
+  libraries     Library[]
+  affirmations  Affirmation[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("packages")
+}
+
+model Library {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name        String
+  packageId   String @db.ObjectId
+  package     Package @relation(fields: [packageId], references: [id])
+
+  categories    Category[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("libraries")
+}
+
+model Category {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  audio         String
+
+  libraryId     String @db.ObjectId
+  liabraries    Library @relation(fields: [libraryId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("categories")
+}
+
+model Affirmation {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  audio       String
+  description String
+  examples    String[]
+
+  libraryId   String @db.ObjectId
+  categoryId  String @db.ObjectId
+  packageId   String @db.ObjectId
+  package     Package @relation(fields: [packageId], references: [id])
+  userId      String @db.ObjectId
+  user        User @relation(fields: [userId], references: [id])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
