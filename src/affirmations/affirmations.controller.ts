@@ -6,17 +6,13 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 import { AffirmationsService } from './affirmations.service';
 import { CreateAffirmationDto } from './dto/create-affirmation.dto';
 import { UpdateAffirmationDto } from './dto/update-affirmation.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Affirmations')
-@ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'))
 @Controller('affirmations')
 export class AffirmationsController {
   constructor(private readonly affirmationsService: AffirmationsService) {}
