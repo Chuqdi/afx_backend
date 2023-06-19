@@ -1,11 +1,8 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { PackagesService } from './packages.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Packages')
-@ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'))
 @Controller('packages')
 export class PackagesController {
   constructor(private readonly packagesService: PackagesService) {}
