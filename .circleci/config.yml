@@ -9,11 +9,13 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image:
           context: AWS
+          environment: "production"
           repo: "${CIRCLE_PROJECT_REPONAME}"
           tag: "latest"
 
       - aws-ecs/deploy-service-update:
           context: AWS
+          environment: "production"
           requires:
             - aws-ecr/build-and-push-image
 
