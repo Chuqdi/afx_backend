@@ -45,11 +45,6 @@ FROM node:18-alpine As production
 COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=build /usr/src/app/dist ./dist
 
-# ENV AWS_COGNITO_AUTHORITY=${AWS_COGNITO_AUTHORITY}
-# ENV AWS_COGNITO_CLIENT_ID=${AWS_COGNITO_CLIENT_ID}
-# ENV AWS_COGNITO_USER_POOL_ID=${AWS_COGNITO_USER_POOL_ID}
-# ENV DATABASE_URL=${DATABASE_URL}
-
 EXPOSE 3000
 
 CMD [ "node", "dist/src/main.js" ]
