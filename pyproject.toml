@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "sf-backend"
+version = "0.1.0"
+description = ""
+authors = ["krashennikov <anton@polarfrequency.com>"]
+readme = "README.md"
+packages = [{include = "sf_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.103.2"
+beanie = "^1.23.0"
+pydantic = {extras = ["email"], version = "^2.4.2"}
+uvicorn = "^0.23.2"
+mypy = "^1.6.1"
+mangum = "^0.17.0"
+python-dotenv = "^1.0.0"
+python-jose = "^3.3.0"
+passlib = "^1.7.4"
+python-multipart = "^0.0.6"
+termcolor = "^2.3.0"
+requests = "^2.31.0"
+bcrypt = "^4.0.1"
+boto3 = "^1.28.71"
+pydocstyle = "^6.3.0"
+stripe = "^7.4.0"
+pillow = "^10.1.0"
+httpx = "^0.25.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
