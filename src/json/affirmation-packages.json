@@ -1,0 +1,311 @@
+{
+  "packages": [
+    {
+      "id": 1,
+      "category": "ECommerce",
+      "title": "Grow your ECommerce Business",
+      "subtitle": "This is a subtitle",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet erat vel mauris tristique, quis aliquam tortor fermentum.",
+      "image_url": "https://cdn.pixabay.com/photo/2024/01/04/14/27/write-8487618_640.jpg",
+      "form": [
+        {
+          "id": 1,
+          "title": "Basic Information",
+          "questions": [
+            {
+              "id": 1,
+              "type": "TEXTFIELD",
+              "title": "The name of your Website",
+              "description": "Keep empty if you don't have a website",
+              "placeholder": "yourwebsite.com",
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Business Goals",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your business goals",
+              "description": "Tell us more about the goals you would like to achieve in 1 year.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "I want to get more clients"
+                },
+                {
+                  "id": 2,
+                  "title": "I want to make more sales"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Voice Input",
+          "questions": [
+            {
+              "id": 1,
+              "type": "VOICE"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "title": "Background Sound",
+          "questions": [
+            {
+              "id": 1,
+              "type": "BACKGROUND_SOUND"
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "id": 1,
+          "title": "Basic Information",
+          "questions": [
+            {
+              "id": 1,
+              "type": "TEXTFIELD",
+              "title": "The name of your Website",
+              "description": "Keep empty if you don't have a website",
+              "placeholder": "yourwebsite.com",
+              "required": false,
+              "value": ""
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Business Goals",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your business goals",
+              "description": "Tell us more about the goals you would like to achieve in 1 year.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "I want to get more clients"
+                },
+                {
+                  "id": 2,
+                  "title": "I want to make more sales"
+                }
+              ],
+              "selected": []
+            },
+            {
+              "id": 2,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your limiting beliefs",
+              "description": "Tell us what might hinder you from achieving your goals",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "I feel my products are not good enough"
+                },
+                {
+                  "id": 2,
+                  "title": "I am not sure if people would like to buy my products"
+                },
+                {
+                  "id": 3,
+                  "title": "I don't have confidence"
+                }
+              ],
+              "selected": []
+            },
+            {
+              "id": 3,
+              "title": "Voice Input",
+              "questions": [
+                {
+                  "id": 1,
+                  "type": "VOICE",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "title": "Background Sound",
+              "questions": [
+                {
+                  "id": 1,
+                  "type": "BACKGROUND_SOUND",
+                  "value": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "category": "Tech",
+      "title": "Boost Your Tech Skills",
+      "subtitle": "Learn the latest technologies",
+      "description": "Enhance your technical expertise with our comprehensive tech skills package.",
+      "image_url": "https://cdn.pixabay.com/photo/2023/12/19/08/45/tech-6950084_640.jpg",
+      "form": [
+        {
+          "id": 1,
+          "title": "Tech Proficiency",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Select your primary tech stack",
+              "description": "Tell us about the technologies you're most comfortable with.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "JavaScript"
+                },
+                {
+                  "id": 2,
+                  "title": "Python"
+                },
+                {
+                  "id": 3,
+                  "title": "Java"
+                },
+                {
+                  "id": 4,
+                  "title": "C#"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "type": "TEXTFIELD",
+              "title": "Other technologies you want to learn",
+              "description": "List any additional technologies you are interested in learning.",
+              "placeholder": "React, Docker, Machine Learning, etc.",
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Project Preferences",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your preferred project type",
+              "description": "Tell us the type of tech projects you enjoy working on.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "Web Development"
+                },
+                {
+                  "id": 2,
+                  "title": "Mobile App Development"
+                },
+                {
+                  "id": 3,
+                  "title": "Data Science"
+                },
+                {
+                  "id": 4,
+                  "title": "Game Development"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "id": 1,
+          "title": "Tech Proficiency",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Select your primary tech stack",
+              "description": "Tell us about the technologies you're most comfortable with.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "JavaScript"
+                },
+                {
+                  "id": 2,
+                  "title": "Python"
+                },
+                {
+                  "id": 3,
+                  "title": "Java"
+                },
+                {
+                  "id": 4,
+                  "title": "C#"
+                }
+              ],
+              "selected": []
+            },
+            {
+              "id": 2,
+              "type": "TEXTFIELD",
+              "title": "Other technologies you want to learn",
+              "description": "List any additional technologies you are interested in learning.",
+              "placeholder": "React, Docker, Machine Learning, etc.",
+              "required": false,
+              "value": ""
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Project Preferences",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your preferred project type",
+              "description": "Tell us the type of tech projects you enjoy working on.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "Web Development"
+                },
+                {
+                  "id": 2,
+                  "title": "Mobile App Development"
+                },
+                {
+                  "id": 3,
+                  "title": "Data Science"
+                },
+                {
+                  "id": 4,
+                  "title": "Game Development"
+                }
+              ],
+              "selected": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,13 +1,11 @@
 from beanie import PydanticObjectId
 from fastapi import HTTPException
-from src.models.credit_history import CreditHistory
+from src.models.user_crediting_system import UserCreditingSystem
 from src.models.enums import (
-    CampaignType,
-    CreditTransactionSource,
-    CreditTransactionType,
+    TransactionSource,
+    TransactionType,
 )
 from src.models.user import User
-from src.utils.internal_configuration import get_current_internal_configuration
 
 
 async def remove_user_credit(
@@ -40,11 +38,11 @@ async def remove_user_credit(
         await user.set({"credits": user.credits - amount})
 
         # Create Credit Transaction
-        credit_transaction = CreditHistory(
+        credit_transaction = UserCreditingSystem(
             user=user.dict(),
             amount=amount,
-            transaction_type=CreditTransactionType.DEBIT,
-            source=source if source else CreditTransactionSource.CAMPAIGN,
+            transaction_type=TransactionType.DEBIT,
+            source=source if source else TransactionSource.AFFIRMATION,
             source_id=source_id if source_id else user_id,
         )
         await credit_transaction.insert()  # type: ignore
@@ -56,7 +54,7 @@ async def remove_user_credit(
 async def add_user_credit(
     user_id: PydanticObjectId,
     amount: int,
-    source=CreditTransactionSource.CAMPAIGN,
+    source=TransactionSource.AFFIRMATION,
     source_id=None,
 ):
     """
@@ -80,37 +78,13 @@ async def add_user_credit(
     await user.set({"credits": user.credits + amount})
 
     # Create Credit Transaction
-    credit_transaction = CreditHistory(
+    credit_transaction = UserCreditingSystem(
         user=user.dict(),
         amount=amount,
-        transaction_type=CreditTransactionType.CREDIT,
+        transaction_type=TransactionType.CREDIT,
         source=source,
         source_id=source_id if source_id else user_id,
     )
     await credit_transaction.create()
     return user
 
-
-async def compute_budget(campaign_type: CampaignType, mention_purchased: int):
-    """
-    Compute budget amount based on campaign type and the mentions purchased
-
-    Parameters:
-    - campaign_type (CampaignType): The type of the campaign
-    - mention_purchased (int): The amount of credits to add to the user's account.
-
-    Returns:
-    - credits(int): The calculated budget in credits
-    """
-    current_internal_configuration = await get_current_internal_configuration()
-    if campaign_type == CampaignType.FLOODING:
-        credits = (
-            mention_purchased
-            / current_internal_configuration.credit_per_flooding_mention
-        )
-    else:
-        credits = (
-            mention_purchased
-            / current_internal_configuration.credit_per_organic_mention
-        )
-    return credits

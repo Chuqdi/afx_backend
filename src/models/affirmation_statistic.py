@@ -9,7 +9,7 @@ class AffirmationStatistic(TimeBaseModel):
     user: Optional[Link[User]] = None
     year: str
     week: int = 1
-    affirmations: Optional[List[Affirmation]] = None
+    affirmations: Optional[List[Link[Affirmation]]] = None
     completed_days: Optional[List[str]] = None  # 1 = Monday ... 7 = Sunday
     listened_affirmation_hours: int = 0
 

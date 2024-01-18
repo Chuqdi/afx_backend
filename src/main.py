@@ -4,7 +4,17 @@ from mangum import Mangum
 from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi.middleware.cors import CORSMiddleware
 from src.api.health_check import router as health_check_router
+from src.api.affirmation import router as affirmation_router
+from src.api.auth import router as auth_router
 from src.config import DATABASE_URI, ROOT_PATH
+from src.models.affirmation import Affirmation
+from src.models.affirmation_listening_history import AffirmationListeningHistory
+from src.models.affirmation_statistic import AffirmationStatistic
+from src.models.billing_history import BillingHistory
+from src.models.payment import UsedPaymentIntent, UserPaymentMethod
+from src.models.stripe import StripePrice, StripeProduct
+from src.models.subscription import Subscription
+from src.models.user_crediting_system import UserCreditingSystem
 
 
 app = FastAPI(
@@ -47,9 +57,28 @@ async def root():
 async def startup_db_client():
     client = AsyncIOMotorClient(DATABASE_URI)
     database = client.dev
-    await init_beanie(database, document_models=[])
+    await init_beanie(
+        database,
+        document_models=[
+            Affirmation,
+            AffirmationListeningHistory,
+            AffirmationStatistic,
+            BillingHistory,
+            Subscription,
+            UserPaymentMethod,
+            UsedPaymentIntent,
+            UserCreditingSystem,
+            StripeProduct,
+            StripePrice,
+        ],  # type: ignore
+    )
 
 
 app.include_router(health_check_router, prefix=f"{ROOT_PATH}/health")
+app.include_router(auth_router, prefix=f"{ROOT_PATH}/auth", tags=["Auth"])
+app.include_router(
+    affirmation_router, prefix=f"{ROOT_PATH}/affirmations", tags=["Affirmation"]
+)
+
 
 handler = Mangum(app)
