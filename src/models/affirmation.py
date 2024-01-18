@@ -2,7 +2,7 @@ from datetime import datetime
 from src.models.affirmation_background_sound import AffirmationBackgroundSound
 from src.models.affirmation_package import AffirmationPackage
 from src.models.affirmation_voice import AffirmationVoice
-from src.models.enums import AffirmationType
+from src.models.enums import AffirmationState, AffirmationType
 from src.models.time_base_model import TimeBaseModel
 from typing import Optional
 from beanie import Link
@@ -19,8 +19,10 @@ class Affirmation(TimeBaseModel):
     hours: int = 0
     last_listened_at: datetime
     starred: bool = False
+    state: Optional[AffirmationState] = AffirmationState.NEW
     voice_id: Optional[Link[AffirmationVoice]] = None
     background_sound_id: Optional[Link[AffirmationBackgroundSound]] = None
+    
 
     class Settings:
         name = "affirmation"

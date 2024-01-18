@@ -23,6 +23,12 @@ class AffirmationExperienceLevel(Enum):
     EXPERIENCED = "experienced"
 
 
+class AffirmationState(Enum):
+    NEW = "new"
+    PENDING = "pending"
+    COMPLETED = "completed"
+
+
 class AffirmationType(Enum):
     IAM = "i_am"
     YOUARE = "you_are"
@@ -44,10 +50,10 @@ class ActorAccent(Enum):
 
 class DataType(Enum):
     STRING = "string"
+    DATE = "date"
     INTEGER = "integer"
     BOOLEAN = "boolean"
     LIST = "list"
-    DICTIONARY = "dictionary"
 
 
 class SubscriptionPlan(Enum):

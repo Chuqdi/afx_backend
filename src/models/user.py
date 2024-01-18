@@ -1,5 +1,6 @@
 from typing import Optional
 from beanie import Indexed
+from pydantic import BaseModel
 from src.models.enums import (
     AffirmationExperienceLevel,
     RelationshipStatus,
@@ -22,7 +23,7 @@ class User(TimeBaseModel):
     gender: Optional[UserGender] = None
     cognito_user_data: dict
     stripe_customer_id: Optional[str] = None
-    dob: datetime
+    dob: Optional[datetime] = None
     relationship_status: Optional[RelationshipStatus] = None
     onboarding_completed: bool = False
     affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
@@ -31,3 +32,14 @@ class User(TimeBaseModel):
 
     class Settings:
         name = "user"
+
+
+class CognitoData(BaseModel):
+    cognito_data: dict
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "cognito_data": dict(),
+            }
+        }

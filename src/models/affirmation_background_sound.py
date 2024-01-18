@@ -6,3 +6,10 @@ class AffirmationBackgroundSound(TimeBaseModel):
 
     class Settings:
         name = "affirmation_background_sound"
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "audio_url": "https://download.samplelib.com/mp3/sample-15s.mp3"
+            }
+        }

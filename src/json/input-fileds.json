@@ -1,0 +1,14 @@
+[
+  {
+    "key": "text-field",
+    "data_type": "string"
+  },
+  {
+    "key": "boolean-field",
+    "data_type": "bool"
+  },
+  {
+    "key": "dropdown-field",
+    "data_type": "list"
+  }
+]

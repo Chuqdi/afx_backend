@@ -5,10 +5,10 @@ from typing import Optional
 from beanie import Link
 
 
-
 class AffirmationPackageField(TimeBaseModel):
     field: Optional[Link[Field]] = None
     affirmation_package: Optional[Link[AffirmationPackage]] = None
+    required: bool = False
 
     class Settings:
         name = "affirmation_package_field"
