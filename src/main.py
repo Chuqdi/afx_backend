@@ -8,18 +8,12 @@ from src.api.affirmation import router as affirmation_router
 from src.api.auth import router as auth_router
 from src.config import DATABASE_URI, ROOT_PATH
 from src.models.affirmation import Affirmation
-from src.models.affirmation_background_sound import AffirmationBackgroundSound
 from src.models.affirmation_listening_history import AffirmationListeningHistory
-from src.models.affirmation_package import AffirmationPackage
-from src.models.affirmation_package_field import AffirmationPackageField
 from src.models.affirmation_statistic import AffirmationStatistic
-from src.models.affirmation_voice import AffirmationVoice
 from src.models.billing_history import BillingHistory
-from src.models.field import Field
 from src.models.payment import UsedPaymentIntent, UserPaymentMethod
 from src.models.stripe import StripePrice, StripeProduct
 from src.models.subscription import Subscription
-from src.models.user_affirmation_package_field import UserAffirmationPackageField
 from src.models.user_crediting_system import UserCreditingSystem
 
 
@@ -67,15 +61,9 @@ async def startup_db_client():
         database,
         document_models=[
             Affirmation,
-            AffirmationPackage,
-            AffirmationPackageField,
-            UserAffirmationPackageField,
-            AffirmationBackgroundSound,
-            AffirmationVoice,
             AffirmationListeningHistory,
             AffirmationStatistic,
             BillingHistory,
-            Field,
             Subscription,
             UserPaymentMethod,
             UsedPaymentIntent,
