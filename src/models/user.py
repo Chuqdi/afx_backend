@@ -18,7 +18,7 @@ class User(TimeBaseModel):
     avatar_url: Optional[str] = None
     phone_number: Optional[str] = None
     suspended: bool = False
-    sub_id: str
+    sub_id: Optional[str] = None
     role: Optional[UserRole] = UserRole.REGULAR
     gender: Optional[UserGender] = None
     cognito_user_data: dict
@@ -43,3 +43,14 @@ class CognitoData(BaseModel):
                 "cognito_data": dict(),
             }
         }
+
+
+class UserUpdateInput(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    phone_number: Optional[str] = None
+    gender: Optional[UserGender] = None
+    dob: Optional[datetime] = None
+    relationship_status: Optional[RelationshipStatus] = None
+    onboarding_completed: bool = False
+    affirmation_experience_level: Optional[AffirmationExperienceLevel] = None

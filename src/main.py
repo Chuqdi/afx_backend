@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.api.health_check import router as health_check_router
 from src.api.affirmation import router as affirmation_router
 from src.api.auth import router as auth_router
+from src.api.user import router as users_router
 from src.config import DATABASE_URI, ROOT_PATH
 from src.models.affirmation import Affirmation
 from src.models.affirmation_listening_history import AffirmationListeningHistory
@@ -14,6 +15,7 @@ from src.models.billing_history import BillingHistory
 from src.models.payment import UsedPaymentIntent, UserPaymentMethod
 from src.models.stripe import StripePrice, StripeProduct
 from src.models.subscription import Subscription
+from src.models.user import User
 from src.models.user_crediting_system import UserCreditingSystem
 
 
@@ -60,6 +62,7 @@ async def startup_db_client():
     await init_beanie(
         database,
         document_models=[
+            User,
             Affirmation,
             AffirmationListeningHistory,
             AffirmationStatistic,
@@ -76,8 +79,9 @@ async def startup_db_client():
 
 app.include_router(health_check_router, prefix=f"{ROOT_PATH}/health")
 app.include_router(auth_router, prefix=f"{ROOT_PATH}/auth", tags=["Auth"])
+app.include_router(users_router, prefix=f"{ROOT_PATH}/users", tags=["Users"])
 app.include_router(
-    affirmation_router, prefix=f"{ROOT_PATH}/affirmations", tags=["Affirmation"]
+    affirmation_router, prefix=f"{ROOT_PATH}/affirmations", tags=["Affirmations"]
 )
 
 
