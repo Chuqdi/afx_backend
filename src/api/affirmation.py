@@ -2,8 +2,10 @@ import os
 import json
 from bson import ObjectId
 from src.models.affirmation import Affirmation
+from src.models.user import User
+from src.utils.auth import verify_token
 from src.utils.logger import get_logger
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi import APIRouter, HTTPException, Path, status
 from src.utils.response import success_response
 
@@ -15,11 +17,13 @@ logger = get_logger("MAIN")
 @router.post("/")
 async def create_affirmation(
     affirmation: Affirmation,
+    user: User = Depends(verify_token)
 ):
     # TODO: Check user credit here
     # ...
 
     """Create New Affirmation Package"""
+    affirmation.user = user  # type: ignore
     createdAffirmation = await Affirmation.insert(affirmation)  # type: ignore
 
     return success_response(
@@ -30,8 +34,10 @@ async def create_affirmation(
 
 
 @router.get("/")
-async def get_affirmations():
-    all_background_sounds = await Affirmation.find_all().to_list()
+async def get_affirmations(user: User = Depends(verify_token)):
+    all_background_sounds = await Affirmation.find(
+        {"user.sub_id": user.sub_id}
+    ).to_list()
     return success_response(
         all_background_sounds,
         "Affirmation fetched successfully",
@@ -43,10 +49,11 @@ async def get_affirmations():
 async def update_affirmation_by_id(
     new_values: Affirmation,
     id: str = Path(..., description="ID of the affirmation"),
+    user: User = Depends(verify_token),
 ):
     """Update Affirmation by ID"""
     existing_background_sound = await Affirmation.find_one(
-        {"_id": ObjectId(id)},
+        {"user.sub_id": user.sub_id, "_id": ObjectId(id)},
     )
     if not existing_background_sound:
         raise HTTPException(
@@ -60,10 +67,11 @@ async def update_affirmation_by_id(
 @router.delete("/{id}")
 async def delete_affirmation_by_id(
     id: str = Path(..., description="ID of the Affirmation "),
+    user: User = Depends(verify_token),
 ):
     """Delete Affirmation by ID"""
     existing_background_sound = await Affirmation.find_one(
-        {"_id": ObjectId(id)},
+        {"user.sub_id": user.sub_id, "_id": ObjectId(id)},
     )
     if not existing_background_sound:
         raise HTTPException(
@@ -76,7 +84,7 @@ async def delete_affirmation_by_id(
 
 # Packages
 @router.get("/packages")
-async def get_affirmation_packages():
+async def get_affirmation_packages(_: User = Depends(verify_token)):
     try:
         current_directory = os.path.dirname(os.path.realpath(__file__))
         json_file_path = os.path.join(
@@ -101,7 +109,7 @@ async def get_affirmation_packages():
 
 # Background Sounds
 @router.get("/background-sounds")
-async def get_affirmation_background_sounds():
+async def get_affirmation_background_sounds(_: User = Depends(verify_token)):
     try:
         current_directory = os.path.dirname(os.path.realpath(__file__))
         json_file_path = os.path.join(
@@ -126,7 +134,7 @@ async def get_affirmation_background_sounds():
 
 # Voices
 @router.get("/voices")
-async def get_affirmation_voices():
+async def get_affirmation_voices(_: User = Depends(verify_token)):
     try:
         current_directory = os.path.dirname(os.path.realpath(__file__))
         json_file_path = os.path.join(

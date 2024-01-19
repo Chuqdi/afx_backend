@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status
 from src.models.token import Token
 from src.models.user import User, CognitoData
-from src.utils.auth import authenticate_user, verify_token
+from src.utils.auth import authenticate_user
 from src.utils.logger import get_logger
 from src.utils.response import success_response
 from fastapi.security import OAuth2PasswordRequestForm
@@ -32,18 +32,3 @@ async def register(data: CognitoData):
     return success_response(
         saved_user, "User created successfully, Check email to verify account", 201
     )
-
-
-@router.get(
-    "/check-token-status",
-    response_model=User,
-    response_model_exclude={
-        "cognito_user_data",
-        "created_at",
-        "updated_at",
-        "id",
-        "revision_id",
-    },
-)
-async def check_token_status(current_user: User = Depends(verify_token)):
-    return current_user

@@ -4,9 +4,7 @@ from src.config import COGNITO_CLIENT_ID, COGNITO_REGION
 from src.models.enums import UserRole
 from src.models.user import User
 from fastapi.security import OAuth2PasswordBearer
-from passlib.context import CryptContext
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 client = boto3.client("cognito-idp", region_name=COGNITO_REGION)
 
@@ -17,6 +15,7 @@ async def verify_token(token: str = Depends(oauth2_scheme)):
         response = client.get_user(AccessToken=token)
         # Token is valid, you can access user information in response['UserAttributes']
         sub_id = response["UserAttributes"][0]["Value"]
+
         user = await User.find_one(User.sub_id == sub_id)
         if user is None:
             raise HTTPException(status_code=401, detail="User not found")
