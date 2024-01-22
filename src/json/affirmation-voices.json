@@ -3,6 +3,8 @@
     "id": 1,
     "audio_url": "https://download.samplelib.com/mp3/sample-15s.mp3",
     "accent": "american",
-    "actor_name": "John Doe"
+    "actor_name": "John Doe",
+    "gender": "male",
+    "profile_url": "https://cdn.pixabay.com/photo/2015/08/05/04/02/people-875597_640.jpg"
   }
 ]

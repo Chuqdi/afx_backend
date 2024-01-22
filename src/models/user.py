@@ -30,8 +30,8 @@ class User(TimeBaseModel):
     # Others
     goals: Optional[List[str]] = None
     limiting_beliefs: Optional[List[str]] = None
-    onboarding_completed: bool = False
     affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
+    onboarding_completed: bool = False
 
     is_marked_for_deletion: bool = False
 
