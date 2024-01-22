@@ -3,6 +3,7 @@ import json
 from bson import ObjectId
 from src.models.affirmation import Affirmation
 from src.models.user import User
+from src.utils.audio import blend_audio_from_urls
 from src.utils.auth import verify_token
 from src.utils.logger import get_logger
 from fastapi import APIRouter, Depends
@@ -16,10 +17,9 @@ logger = get_logger("MAIN")
 # Affirmations
 @router.post("/")
 async def create_affirmation(
-    affirmation: Affirmation,
-    user: User = Depends(verify_token)
+    affirmation: Affirmation, user: User = Depends(verify_token)
 ):
-    # TODO: Check user credit here
+    # TODO: Check user credit here and perform deductions
     # ...
 
     """Create New Affirmation Package"""
@@ -84,7 +84,7 @@ async def delete_affirmation_by_id(
 
 # Packages
 @router.get("/packages")
-async def get_affirmation_packages(_: User = Depends(verify_token)):
+async def get_affirmation_packages():
     try:
         current_directory = os.path.dirname(os.path.realpath(__file__))
         json_file_path = os.path.join(
@@ -154,4 +154,44 @@ async def get_affirmation_voices(_: User = Depends(verify_token)):
         data,
         "Affirmation voices fetched successfully",
         status.HTTP_200_OK,
+    )
+
+
+# Categories
+@router.get("/categories")
+async def get_affirmation_categories():
+    try:
+        current_directory = os.path.dirname(os.path.realpath(__file__))
+        json_file_path = os.path.join(
+            current_directory, "..", "json", "affirmation-categories.json"
+        )
+
+        with open(json_file_path, "r") as file:
+            data = json.load(file)
+
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Affirmation categories file not found",
+        )
+
+    return success_response(
+        data,
+        "Affirmation categories fetched successfully",
+        status.HTTP_200_OK,
+    )
+
+
+# Audio Blends
+@router.post("/blend")
+async def blend_audio(user: User = Depends(verify_token)):
+    original_audio = "https://res.cloudinary.com/daniel-goff/video/upload/v1705684953/uploads/bzinylojzelggufzrpgg.mp3"
+    background_audio = "https://cdn.pixabay.com/download/audio/2024/01/16/audio_e2b992254f.mp3?filename=better-day-186374.mp3"
+
+    await blend_audio_from_urls(original_audio, background_audio)
+
+    return success_response(
+        data={},
+        message="Blend successful",
+        status_code=status.HTTP_200_OK,
     )

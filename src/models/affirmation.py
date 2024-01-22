@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from src.models.enums import AffirmationState, AffirmationType
 from src.models.time_base_model import TimeBaseModel
 from typing import Optional

@@ -2,11 +2,16 @@
   "packages": [
     {
       "id": 1,
-      "category": "ECommerce",
+      "category": {
+        "id": 1,
+        "title": "ECommerce",
+        "image_url": "https://cdn.pixabay.com/photo/2023/09/29/10/20/sunset-8283538_1280.jpg"
+      },
       "title": "Grow your ECommerce Business",
       "subtitle": "This is a subtitle",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet erat vel mauris tristique, quis aliquam tortor fermentum.",
       "image_url": "https://cdn.pixabay.com/photo/2024/01/04/14/27/write-8487618_640.jpg",
+
       "form": [
         {
           "id": 1,
@@ -154,7 +159,11 @@
     },
     {
       "id": 2,
-      "category": "Tech",
+      "category": {
+        "id": 2,
+        "title": "Tech",
+        "image_url": "https://cdn.pixabay.com/photo/2023/06/19/05/53/temple-8073501_640.png"
+      },
       "title": "Boost Your Tech Skills",
       "subtitle": "Learn the latest technologies",
       "description": "Enhance your technical expertise with our comprehensive tech skills package.",

@@ -1,18 +1,20 @@
 [
   {
     "id": 1,
-    "audio_url": "https://cdn.pixabay.com/download/audio/2024/01/16/audio_e2b992254f.mp3?filename=better-day-186374.mp3"
+    "audio_url": "https://cdn.pixabay.com/download/audio/2024/01/16/audio_e2b992254f.mp3?filename=better-day-186374.mp3",
+    "title": "Nature",
+    "artwork": "https://cdn.pixabay.com/photo/2016/04/21/15/09/gel-1343598_1280.jpg"
   },
   {
     "id": 2,
-    "audio_url": "https://cdn.pixabay.com/download/audio/2024/01/10/audio_e1d20b0759.mp3?filename=separation-185196.mp3"
+    "audio_url": "https://cdn.pixabay.com/download/audio/2024/01/10/audio_e1d20b0759.mp3?filename=separation-185196.mp3",
+    "title": "Meditation",
+    "artwork": "https://cdn.pixabay.com/photo/2016/11/22/23/29/meditate-1851165_640.jpg"
   },
   {
     "id": 3,
-    "audio_url": "https://cdn.pixabay.com/download/audio/2023/10/24/audio_9408f7326a.mp3?filename=drive-breakbeat-173062.mp3"
-  },
-  {
-    "id": 4,
-    "audio_url": "https://cdn.pixabay.com/download/audio/2024/01/11/audio_5ee4700b94.mp3?filename=epic-background-orchestral-music-fairytale-world-emily-hip-hop-ver-185382.mp3"
+    "audio_url": "https://cdn.pixabay.com/download/audio/2023/10/24/audio_9408f7326a.mp3?filename=drive-breakbeat-173062.mp3",
+    "title": "Soft instrumental",
+    "artwork": "https://cdn.pixabay.com/photo/2015/09/05/12/53/violin-924349_640.jpg"
   }
 ]
