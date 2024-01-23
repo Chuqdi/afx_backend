@@ -35,11 +35,9 @@ async def create_affirmation(
 
 @router.get("/")
 async def get_affirmations(user: User = Depends(verify_token)):
-    all_background_sounds = await Affirmation.find(
-        {"user.sub_id": user.sub_id}
-    ).to_list()
+    affirmation = await Affirmation.find({"user.sub_id": user.sub_id}).to_list()
     return success_response(
-        all_background_sounds,
+        affirmation,
         "Affirmation fetched successfully",
         status.HTTP_200_OK,
     )
@@ -52,15 +50,15 @@ async def update_affirmation_by_id(
     user: User = Depends(verify_token),
 ):
     """Update Affirmation by ID"""
-    existing_background_sound = await Affirmation.find_one(
+    affirmation = await Affirmation.find_one(
         {"user.sub_id": user.sub_id, "_id": ObjectId(id)},
     )
-    if not existing_background_sound:
+    if not affirmation:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Affirmation not found",
         )
-    await existing_background_sound.setValue(dict(new_values))
+    await affirmation.setValue(dict(new_values))
     return success_response(message="Affirmation  updated successfully")
 
 
@@ -70,15 +68,15 @@ async def delete_affirmation_by_id(
     user: User = Depends(verify_token),
 ):
     """Delete Affirmation by ID"""
-    existing_background_sound = await Affirmation.find_one(
+    affirmation = await Affirmation.find_one(
         {"user.sub_id": user.sub_id, "_id": ObjectId(id)},
     )
-    if not existing_background_sound:
+    if not affirmation:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Affirmation  not found",
         )
-    await existing_background_sound.delete()  # type: ignore
+    await affirmation.delete()  # type: ignore
     return success_response(message="Affirmation  deleted successfully")
 
 
