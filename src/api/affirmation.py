@@ -182,7 +182,7 @@ async def get_affirmation_categories():
 
 # Audio Blends
 @router.post("/blend")
-async def blend_audio(user: User = Depends(verify_token)):
+async def blend_audio(_: User = Depends(verify_token)):
     original_audio = "https://res.cloudinary.com/daniel-goff/video/upload/v1705684953/uploads/bzinylojzelggufzrpgg.mp3"
     background_audio = "https://cdn.pixabay.com/download/audio/2024/01/16/audio_e2b992254f.mp3?filename=better-day-186374.mp3"
 
