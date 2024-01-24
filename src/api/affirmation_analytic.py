@@ -31,7 +31,6 @@ async def get_user_streak_info(user: User = Depends(verify_token)):
         total_affirmations += 1
         total_seconds_listened += affirmation.total_seconds_listened
 
-
         if affirmation.completed_at:
             completed_date = affirmation.completed_at.date()
 
@@ -42,34 +41,70 @@ async def get_user_streak_info(user: User = Depends(verify_token)):
                 current_streak = 1
 
             # Check if the affirmation was completed this week
-            if completed_date.strftime('%U') == today.strftime('%U'):
+            if completed_date.strftime("%U") == today.strftime("%U"):
                 total_affirmations_this_week += 1
                 total_seconds_listened_this_week += affirmation.total_seconds_listened
-
 
             streak_info.setdefault(str(completed_date.year), {})
             streak_info[str(completed_date.year)].setdefault(
                 f"{completed_date.strftime('%U')}", {}
             )
-            streak_info[str(completed_date.year)][
-                f"{completed_date.strftime('%U')}"
-            ][completed_date.strftime("%a").lower()] = True
+            streak_info[str(completed_date.year)][f"{completed_date.strftime('%U')}"][
+                completed_date.strftime("%a").lower()
+            ] = True
 
     # Set other days to False if they have not been completed
     for year in streak_info:
         for week in streak_info[year]:
-            for day in ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']:
+            for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]:
                 streak_info[year][week].setdefault(day, False)
 
     streak_info["current_streak"] = current_streak
-    streak_info['total_affirmations'] = total_affirmations
-    streak_info['total_seconds_listened'] = total_seconds_listened
-    streak_info['total_affirmations_this_week'] = total_affirmations_this_week
-    streak_info['total_seconds_listened_this_week'] = total_seconds_listened_this_week
+    streak_info["total_affirmations"] = total_affirmations
+    streak_info["total_seconds_listened"] = total_seconds_listened
+    streak_info["total_affirmations_this_week"] = total_affirmations_this_week
+    streak_info["total_seconds_listened_this_week"] = total_seconds_listened_this_week
 
-    
     return success_response(
         streak_info,
         "User affirmation streak information fetched successfully",
+        status.HTTP_200_OK,
+    )
+
+
+@router.get("/chart-information")
+async def get_chart_information(user: User = Depends(verify_token)):
+    """Getting chart information for total_seconds_listened per week"""
+
+    affirmations = await Affirmation.find(
+        {"user.sub_id": user.sub_id}, fetch_links=True
+    ).to_list()
+
+    chart_info = {}
+
+    for affirmation in affirmations:
+        if affirmation.completed_at:
+            completed_date = affirmation.completed_at.date()
+            year_str = str(completed_date.year)
+            week_str = completed_date.strftime("%U")
+            day_str = completed_date.strftime("%a").lower()
+
+            chart_info.setdefault(year_str, {}).setdefault(week_str, {}).setdefault(
+                day_str, 0
+            )
+            chart_info[year_str][week_str][
+                day_str
+            ] += affirmation.total_seconds_listened
+
+    # Fill in missing days with 0
+    today = datetime.now().date()
+    for year in chart_info:
+        for week in chart_info[year]:
+            for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]:
+                chart_info[year][week].setdefault(day, 0)
+
+    return success_response(
+        chart_info,
+        "Chart information fetched successfully",
         status.HTTP_200_OK,
     )

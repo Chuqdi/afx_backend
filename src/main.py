@@ -84,7 +84,7 @@ app.include_router(
 )
 app.include_router(
     affirmation_analytic_router,
-    prefix=f"{ROOT_PATH}/affirmation-analytic",
+    prefix=f"{ROOT_PATH}/affirmation-analytics",
     tags=["Affirmation Analytics"],
 )
 
