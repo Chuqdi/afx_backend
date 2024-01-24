@@ -5,7 +5,6 @@ from src.models.affirmation import Affirmation
 from src.models.affirmation_listening_history import AffirmationListeningHistory
 from src.models.enums import TransactionSource
 from src.models.user import User
-from src.utils.audio import blend_audio_from_urls
 from src.utils.auth import verify_token
 from src.utils.credit import remove_user_credit
 from src.utils.logger import get_logger
@@ -140,6 +139,7 @@ async def create(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Affirmation  not found",
         )
+
 
     affirmationListeningHistory.user = user_info  # type: ignore
     affirmationListeningHistory.affirmation = affirmation  # type: ignore

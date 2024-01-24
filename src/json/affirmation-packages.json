@@ -164,79 +164,70 @@
         "title": "Tech",
         "image_url": "https://cdn.pixabay.com/photo/2023/06/19/05/53/temple-8073501_640.png"
       },
-      "title": "Boost Your Tech Skills",
-      "subtitle": "Learn the latest technologies",
-      "description": "Enhance your technical expertise with our comprehensive tech skills package.",
-      "image_url": "https://cdn.pixabay.com/photo/2023/12/19/08/45/tech-6950084_640.jpg",
+      "title": "Grow your Tech Startup",
+      "subtitle": "This is a subtitle",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet erat vel mauris tristique, quis aliquam tortor fermentum.",
+      "image_url": "https://cdn.pixabay.com/photo/2024/01/04/14/27/write-8487618_640.jpg",
       "credits": 1,
       "form": [
         {
           "id": 1,
-          "title": "Tech Proficiency",
+          "title": "Basic Information",
           "questions": [
             {
               "id": 1,
-              "type": "MULTIPLE_CHOICE",
-              "title": "Select your primary tech stack",
-              "description": "Tell us about the technologies you're most comfortable with.",
-              "required": true,
-              "options": [
-                {
-                  "id": 1,
-                  "title": "JavaScript"
-                },
-                {
-                  "id": 2,
-                  "title": "Python"
-                },
-                {
-                  "id": 3,
-                  "title": "Java"
-                },
-                {
-                  "id": 4,
-                  "title": "C#"
-                }
-              ]
-            },
-            {
-              "id": 2,
               "type": "TEXTFIELD",
-              "title": "Other technologies you want to learn",
-              "description": "List any additional technologies you are interested in learning.",
-              "placeholder": "React, Docker, Machine Learning, etc.",
-              "required": false
+              "title": "The name of your company",
+              "description": "",
+              "placeholder": "X",
+              "required": true
             }
           ]
         },
         {
           "id": 2,
-          "title": "Project Preferences",
+          "title": "Business Goals",
           "questions": [
             {
               "id": 1,
               "type": "MULTIPLE_CHOICE",
-              "title": "Choose your preferred project type",
-              "description": "Tell us the type of tech projects you enjoy working on.",
+              "title": "Choose your startup buisness goals",
+              "description": "Tell us more about the goals you would like to achieve in 3 year.",
               "required": true,
               "options": [
                 {
                   "id": 1,
-                  "title": "Web Development"
+                  "title": "I want to get more uses to use my SAAS product"
                 },
                 {
                   "id": 2,
-                  "title": "Mobile App Development"
+                  "title": "I want to be able to scale the startup to 10K user monthly"
                 },
                 {
                   "id": 3,
-                  "title": "Data Science"
-                },
-                {
-                  "id": 4,
-                  "title": "Game Development"
+                  "title": "I want to be able to get as many  Investors as possible"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Voice Input",
+          "questions": [
+            {
+              "id": 1,
+              "type": "VOICE"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "title": "Background Sound",
+          "questions": [
+            {
+              "id": 1,
+              "type": "BACKGROUND_SOUND"
             }
           ]
         }
@@ -244,74 +235,66 @@
       "answers": [
         {
           "id": 1,
-          "title": "Tech Proficiency",
+          "title": "Basic Information",
           "questions": [
             {
               "id": 1,
-              "type": "MULTIPLE_CHOICE",
-              "title": "Select your primary tech stack",
-              "description": "Tell us about the technologies you're most comfortable with.",
-              "required": true,
-              "options": [
-                {
-                  "id": 1,
-                  "title": "JavaScript"
-                },
-                {
-                  "id": 2,
-                  "title": "Python"
-                },
-                {
-                  "id": 3,
-                  "title": "Java"
-                },
-                {
-                  "id": 4,
-                  "title": "C#"
-                }
-              ],
-              "selected": []
-            },
-            {
-              "id": 2,
               "type": "TEXTFIELD",
-              "title": "Other technologies you want to learn",
-              "description": "List any additional technologies you are interested in learning.",
-              "placeholder": "React, Docker, Machine Learning, etc.",
-              "required": false,
+              "title": "The name of your company",
+              "description": "",
+              "placeholder": "X",
+              "required": true,
               "value": ""
             }
           ]
         },
         {
           "id": 2,
-          "title": "Project Preferences",
+          "title": "Business Goals",
           "questions": [
             {
               "id": 1,
               "type": "MULTIPLE_CHOICE",
-              "title": "Choose your preferred project type",
-              "description": "Tell us the type of tech projects you enjoy working on.",
+              "title": "Choose your startup buisness goals",
+              "description": "Tell us more about the goals you would like to achieve in 3 year.",
               "required": true,
               "options": [
                 {
                   "id": 1,
-                  "title": "Web Development"
+                  "title": "I want to get more uses to use my SAAS product"
                 },
                 {
                   "id": 2,
-                  "title": "Mobile App Development"
+                  "title": "I want to be able to scale the startup to 10K user monthly"
                 },
                 {
                   "id": 3,
-                  "title": "Data Science"
-                },
-                {
-                  "id": 4,
-                  "title": "Game Development"
+                  "title": "I want to be able to get as many  Investors as possible"
                 }
               ],
               "selected": []
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Voice Input",
+          "questions": [
+            {
+              "id": 1,
+              "type": "VOICE",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "title": "Background Sound",
+          "questions": [
+            {
+              "id": 1,
+              "type": "BACKGROUND_SOUND",
+              "value": ""
             }
           ]
         }

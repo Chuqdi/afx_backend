@@ -16,6 +16,7 @@ class Affirmation(TimeBaseModel):
     sentences: Optional[str] = None
     total_seconds_listened: int = 0
     last_listened_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
     starred: bool = False
     class Settings:
         name = "affirmation"
@@ -27,6 +28,7 @@ class Affirmation(TimeBaseModel):
             "sentences": 1,
             "total_seconds_listened": 1,
             "last_listened_at": 1,
+            "completed_at": 1,
             "starred": 1,
         }
 
