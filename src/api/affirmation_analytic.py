@@ -97,7 +97,6 @@ async def get_chart_information(user: User = Depends(verify_token)):
             ] += affirmation.total_seconds_listened
 
     # Fill in missing days with 0
-    today = datetime.now().date()
     for year in chart_info:
         for week in chart_info[year]:
             for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]:
