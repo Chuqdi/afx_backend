@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 from beanie import Indexed
 from pydantic import BaseModel
 from src.models.enums import (
@@ -25,14 +25,10 @@ class User(TimeBaseModel):
     stripe_customer_id: Optional[str] = None
     dob: Optional[datetime] = None
     relationship_status: Optional[RelationshipStatus] = None
-    credits: int = 0
-
-    # Others
-    goals: Optional[List[str]] = None
-    limiting_beliefs: Optional[List[str]] = None
-    affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
     onboarding_completed: bool = False
-
+    explainer_completed: bool = False
+    affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
+    credits: int = 0
     is_marked_for_deletion: bool = False
 
     class Settings:
@@ -45,7 +41,7 @@ class CognitoData(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "cognito_data": dict(),
+                "data": dict(),
             }
         }
 
@@ -57,7 +53,6 @@ class UserUpdateInput(BaseModel):
     gender: Optional[UserGender] = None
     dob: Optional[datetime] = None
     relationship_status: Optional[RelationshipStatus] = None
-    onboarding_completed: bool = False
+    onboarding_completed: Optional[bool] = False
+    explainer_completed: Optional[bool] = False
     affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
-    goals: Optional[List[str]] = None
-    limiting_beliefs: Optional[List[str]] = None
