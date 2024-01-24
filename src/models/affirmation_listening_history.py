@@ -12,7 +12,6 @@ class AffirmationListeningHistory(TimeBaseModel):
     start_at: datetime
     resumed_at: datetime
     listened_until: datetime
-    completed: bool = False
 
     class Settings:
         name = "affirmation_listening_history"
@@ -21,7 +20,6 @@ class AffirmationListeningHistory(TimeBaseModel):
             "affirmation": "$affirmation._id",
             "resumed_at": 1,
             "listened_until": 1,
-            "completed": 1,
         }
 
     class Config:
@@ -29,7 +27,6 @@ class AffirmationListeningHistory(TimeBaseModel):
             "example": {
                 "start_at": datetime.now(),
                 "resumed_at": datetime.now(),
-                "listened_until": datetime.now(),
-                "completed": False,
+                "listened_until": datetime.now()
             }
         }
