@@ -5,12 +5,12 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi.middleware.cors import CORSMiddleware
 from src.api.health_check import router as health_check_router
 from src.api.affirmation import router as affirmation_router
+from src.api.affirmation_analytic import router as affirmation_analytic_router
 from src.api.auth import router as auth_router
 from src.api.user import router as users_router
 from src.config import DATABASE_URI, ROOT_PATH
 from src.models.affirmation import Affirmation
 from src.models.affirmation_listening_history import AffirmationListeningHistory
-from src.models.affirmation_statistic import AffirmationStatistic
 from src.models.billing_history import BillingHistory
 from src.models.payment import UsedPaymentIntent, UserPaymentMethod
 from src.models.stripe import StripePrice, StripeProduct
@@ -65,7 +65,6 @@ async def startup_db_client():
             User,
             Affirmation,
             AffirmationListeningHistory,
-            AffirmationStatistic,
             BillingHistory,
             Subscription,
             UserPaymentMethod,
@@ -82,6 +81,11 @@ app.include_router(auth_router, prefix=f"{ROOT_PATH}/auth", tags=["Auth"])
 app.include_router(users_router, prefix=f"{ROOT_PATH}/users", tags=["Users"])
 app.include_router(
     affirmation_router, prefix=f"{ROOT_PATH}/affirmations", tags=["Affirmations"]
+)
+app.include_router(
+    affirmation_analytic_router,
+    prefix=f"{ROOT_PATH}/affirmation-analytics",
+    tags=["Affirmation Analytics"],
 )
 
 
