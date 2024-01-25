@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 from beanie import Indexed
 from pydantic import BaseModel
 from src.models.enums import (
@@ -56,3 +56,5 @@ class UserUpdateInput(BaseModel):
     onboarding_completed: Optional[bool] = False
     explainer_completed: Optional[bool] = False
     affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
+    goals: Optional[List[str]] = None
+    limiting_beliefs: Optional[List[str]] = None
