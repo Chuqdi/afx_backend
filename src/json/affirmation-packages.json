@@ -337,8 +337,8 @@
               "id": 3,
               "type": "TEXTFIELD",
               "title": "Brand Origin",
-              "description": "Enter brand color",
-              "placeholder": "Enter brand color",
+              "description": "Enter brand origin",
+              "placeholder": "e.g. United States",
               "required": true
             },
             {
@@ -489,8 +489,8 @@
               "id": 3,
               "type": "TEXTFIELD",
               "title": "Brand Origin",
-              "description": "Enter brand color",
-              "placeholder": "Enter brand color",
+              "description": "Enter brand origin",
+              "placeholder": "e.g. United States",
               "required": true,
               "value": ""
             },
