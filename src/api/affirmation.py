@@ -3,9 +3,10 @@ import json
 from bson import ObjectId
 from src.models.affirmation import Affirmation
 from src.models.affirmation_listening_history import AffirmationListeningHistory
+from src.models.affirmation_package import AffirmationPackage
 from src.models.enums import TransactionSource
 from src.models.user import User
-from src.utils.auth import verify_token
+from src.utils.auth import verify_admin_token, verify_token
 from src.utils.credit import remove_user_credit
 from src.utils.logger import get_logger
 from fastapi import APIRouter, Depends, Query
@@ -38,7 +39,7 @@ async def create_affirmation(
             user.id,
             int(credits_to_remove),
             source=TransactionSource.AFFIRMATION,
-        ) # type: ignore
+        )  # type: ignore
 
     return success_response(
         createdAffirmation,
@@ -140,7 +141,6 @@ async def create(
             detail="Affirmation  not found",
         )
 
-
     affirmationListeningHistory.user = user_info  # type: ignore
     affirmationListeningHistory.affirmation = affirmation  # type: ignore
     createdAffirmationHistory = await AffirmationListeningHistory.insert(affirmationListeningHistory)  # type: ignore
@@ -152,22 +152,22 @@ async def create(
 
 
 # Packages
+@router.post("/packages")
+async def create_afirmation_package(
+    affirmationPackage: AffirmationPackage, _: User = Depends(verify_admin_token)
+):
+    created_package = await AffirmationPackage.insert(affirmationPackage)
+
+    return success_response(
+        created_package,
+        "Affirmation package created successfully",
+        status.HTTP_201_CREATED,
+    )
+
+
 @router.get("/packages")
 async def get_affirmation_packages():
-    try:
-        current_directory = os.path.dirname(os.path.realpath(__file__))
-        json_file_path = os.path.join(
-            current_directory, "..", "json", "affirmation-packages.json"
-        )
-
-        with open(json_file_path, "r") as file:
-            data = json.load(file)
-
-    except FileNotFoundError:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Affirmation package file not found",
-        )
+    data = await AffirmationPackage.find_all().to_list()
 
     return success_response(
         data,

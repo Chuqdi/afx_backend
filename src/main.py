@@ -11,6 +11,7 @@ from src.api.user import router as users_router
 from src.config import DATABASE_URI, ROOT_PATH
 from src.models.affirmation import Affirmation
 from src.models.affirmation_listening_history import AffirmationListeningHistory
+from src.models.affirmation_package import AffirmationPackage
 from src.models.billing_history import BillingHistory
 from src.models.payment import UsedPaymentIntent, UserPaymentMethod
 from src.models.stripe import StripePrice, StripeProduct
@@ -64,6 +65,7 @@ async def startup_db_client():
         document_models=[
             User,
             Affirmation,
+            AffirmationPackage,
             AffirmationListeningHistory,
             BillingHistory,
             Subscription,
