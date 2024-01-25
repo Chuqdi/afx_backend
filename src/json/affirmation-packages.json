@@ -299,6 +299,328 @@
           ]
         }
       ]
+    },
+    {
+      "id": 3,
+      "category": {
+        "id": 3,
+        "title": "Product Design",
+        "image_url": "https://cdn.pixabay.com/photo/2018/03/27/21/43/startup-3267505_1280.jpg"
+      },
+      "title": "All about scalable products",
+      "subtitle": "This is a subtitle",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet erat vel mauris tristique, quis aliquam tortor fermentum.",
+      "image_url": "https://cdn.pixabay.com/photo/2015/09/09/19/56/office-932926_640.jpg",
+      "credits": 1,
+      "form": [
+        {
+          "id": 1,
+          "title": "Background Information",
+          "questions": [
+            {
+              "id": 1,
+              "type": "TEXTFIELD",
+              "title": "Brand Name",
+              "description": "Enter brand name",
+              "placeholder": "Enter brand name",
+              "required": false
+            },
+            {
+              "id": 2,
+              "type": "TEXTFIELD",
+              "title": "Brand Color",
+              "description": "Enter brand color",
+              "placeholder": "Enter brand color",
+              "required": true
+            },
+            {
+              "id": 3,
+              "type": "TEXTFIELD",
+              "title": "Brand Origin",
+              "description": "Enter brand color",
+              "placeholder": "Enter brand color",
+              "required": true
+            },
+            {
+              "id": 4,
+              "type": "SELECTFIELD",
+              "title": "Number of employees in your startup",
+              "description": "Tell us more about the size of your startup",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "1 - 50"
+                },
+                {
+                  "id": 2,
+                  "title": "51 - 1000"
+                },
+                {
+                  "id": 2,
+                  "title": ">1000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Business Goals",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your business goals",
+              "description": "Tell us more about the goals you would like to achieve in 3 years.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "I want to build more products"
+                },
+                {
+                  "id": 2,
+                  "title": "I want to scale my existing products"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Limiting Beliefs",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your business goals",
+              "description": "Tell us more about the goals you would like to achieve in 1 year.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "I want to get more clients"
+                },
+                {
+                  "id": 2,
+                  "title": "I want to make more sales"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Voice Input",
+          "questions": [
+            {
+              "id": 1,
+              "type": "VOICE"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "title": "Background Sound",
+          "questions": [
+            {
+              "id": 1,
+              "type": "BACKGROUND_SOUND"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "title": "Failures in the past",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your past failures",
+              "description": "Tell us more about the failures you have had in the past",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "My startup went bakrupt after seed funding"
+                },
+                {
+                  "id": 2,
+                  "title": "My startup filed for bankruptcy due to technical glitch"
+                },
+                {
+                  "id": 3,
+                  "title": "Old Tech usage"
+                },
+                {
+                  "id": 4,
+                  "title": "Poor Plannig"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "answers": [
+        {
+          "id": 1,
+          "title": "Background Information",
+          "questions": [
+            {
+              "id": 1,
+              "type": "TEXTFIELD",
+              "title": "Brand Name",
+              "description": "Enter brand name",
+              "placeholder": "Enter brand name",
+              "required": false,
+              "value": ""
+            },
+            {
+              "id": 2,
+              "type": "TEXTFIELD",
+              "title": "Brand Color",
+              "description": "Enter brand color",
+              "placeholder": "Enter brand color",
+              "required": true,
+              "value": ""
+            },
+            {
+              "id": 3,
+              "type": "TEXTFIELD",
+              "title": "Brand Origin",
+              "description": "Enter brand color",
+              "placeholder": "Enter brand color",
+              "required": true,
+              "value": ""
+            },
+            {
+              "id": 4,
+              "type": "SELECTFIELD",
+              "title": "Number of employees in your startup",
+              "description": "Tell us more about the size of your startup",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "1 - 50"
+                },
+                {
+                  "id": 2,
+                  "title": "51 - 1000"
+                },
+                {
+                  "id": 2,
+                  "title": ">1000"
+                }
+              ],
+              "selected": []
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Business Goals",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your business goals",
+              "description": "Tell us more about the goals you would like to achieve in 3 years.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "I want to build more products"
+                },
+                {
+                  "id": 2,
+                  "title": "I want to scale my existing products"
+                }
+              ],
+              "selected": []
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Limiting Beliefs",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your business goals",
+              "description": "Tell us more about the goals you would like to achieve in 1 year.",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "I want to get more app users"
+                },
+                {
+                  "id": 2,
+                  "title": "I want to make more sales"
+                }
+              ],
+              "selected": []
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Voice Input",
+          "questions": [
+            {
+              "id": 1,
+              "type": "VOICE",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "title": "Background Sound",
+          "questions": [
+            {
+              "id": 1,
+              "type": "BACKGROUND_SOUND",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "title": "Failures in the past",
+          "questions": [
+            {
+              "id": 1,
+              "type": "MULTIPLE_CHOICE",
+              "title": "Choose your past failures",
+              "description": "Tell us more about the failures you have had in the past",
+              "required": true,
+              "options": [
+                {
+                  "id": 1,
+                  "title": "My startup went bakrupt after seed funding"
+                },
+                {
+                  "id": 2,
+                  "title": "My startup filed for bankruptcy due to technical glitch"
+                },
+                {
+                  "id": 3,
+                  "title": "Old Tech usage"
+                },
+                {
+                  "id": 4,
+                  "title": "Poor Planning"
+                }
+              ],
+              "selected": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }
