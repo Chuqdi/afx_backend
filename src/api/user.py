@@ -8,7 +8,7 @@ from src.utils.logger import get_logger
 from src.utils.response import success_response
 from fastapi import File, UploadFile
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
-from boto3 import client as boto3Client
+from boto3 import client as boto3_client
 from src.utils.image_upload import resize_image
 from datetime import datetime
 
@@ -26,7 +26,7 @@ from src.config import (
 
 ALLOWED_IMAGE_EXTENSIONS = ["jpg", "jpeg", "png"]
 
-s3_client = boto3Client(
+s3_client = boto3_client(
     "s3",
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
