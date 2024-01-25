@@ -38,7 +38,7 @@ async def create_affirmation(
             user.id,
             int(credits_to_remove),
             source=TransactionSource.AFFIRMATION,
-        )
+        ) # type: ignore
 
     return success_response(
         createdAffirmation,

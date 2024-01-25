@@ -9,6 +9,11 @@
       "id": 2,
       "title": "Tech",
       "image_url": "https://cdn.pixabay.com/photo/2023/06/19/05/53/temple-8073501_640.png"
+    },
+    {
+      "id": 3,
+      "title": "Product Design",
+      "image_url": "https://cdn.pixabay.com/photo/2018/03/27/21/43/startup-3267505_1280.jpg"
     }
   ]
 }
