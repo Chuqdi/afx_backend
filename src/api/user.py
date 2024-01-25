@@ -57,7 +57,15 @@ async def get_user(current_user: User = Depends(verify_token)):
     return current_user
 
 
-@router.post("/profile-image")
+@router.post(
+    "/profile-image", 
+    response_model=User,
+    response_model_exclude={
+        "cognito_user_data",
+        "revision_id",
+        "id",
+    },
+)
 async def upload_image(
     file: UploadFile = File(description="A file read as UploadFile"),
     user: User = Depends(verify_token),
@@ -81,9 +89,6 @@ async def upload_image(
 
         await user.setValue({"avatar_url": url})
 
-        return success_response(
-            data={"url": url},
-            message="User profile image updated successfully",
-        )
+        return user
     except (NoCredentialsError, PartialCredentialsError):
         raise HTTPException(status_code=500, detail="AWS credentials not available")
