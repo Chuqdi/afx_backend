@@ -25,10 +25,13 @@ class User(TimeBaseModel):
     stripe_customer_id: Optional[str] = None
     dob: Optional[datetime] = None
     relationship_status: Optional[RelationshipStatus] = None
+    credits: int = 0
+    # Others
+    goals: Optional[List[str]] = None
+    limiting_beliefs: Optional[List[str]] = None
+    affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
     onboarding_completed: bool = False
     explainer_completed: bool = False
-    affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
-    credits: int = 0
     is_marked_for_deletion: bool = False
 
     class Settings:

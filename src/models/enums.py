@@ -7,17 +7,17 @@ class UserRole(Enum):
 
 
 class UserGender(Enum):
-    MALE = "Male"
-    FEMALE = "Female"
+    MALE = "male"
+    FEMALE = "female"
 
 
 class RelationshipStatus(Enum):
-    SINGLE = "Single"
-    ENGAGED = "Engaged"
-    MARRIED = "Married"
-    DEVORCED = "Divorced"
-    SEPARATED = "Separated"
-    WIDOWED = "Widowed"
+    SINGLE = "single"
+    ENGAGED = "engaged"
+    MARRIED = "married"
+    DEVORCED = "divorced"
+    SEPARATED = "separated"
+    WIDOWED = "widowed"
 
 
 class AffirmationExperienceLevel(Enum):
