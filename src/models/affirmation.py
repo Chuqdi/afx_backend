@@ -2,7 +2,7 @@ from datetime import datetime
 
 from src.models.enums import AffirmationState, AffirmationType
 from src.models.time_base_model import TimeBaseModel
-from typing import Optional
+from typing import List, Optional
 from beanie import Link
 
 from src.models.user import User
@@ -13,7 +13,7 @@ class Affirmation(TimeBaseModel):
     type: Optional[AffirmationType] = None
     package: Optional[dict] = None
     state: Optional[AffirmationState] = AffirmationState.NEW
-    sentences: Optional[str] = None
+    sentences: Optional[List[str]] = None
     total_seconds_listened: int = 0
     last_listened_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
