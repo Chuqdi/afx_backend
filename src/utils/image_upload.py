@@ -3,6 +3,8 @@ from io import BytesIO
 
 def resize_image(image_bytes, size=(100, 100), format="JPEG"):
     image = Image.open(BytesIO(image_bytes))
+    if format != "png":
+        format="JPEG"
     image.thumbnail(size)
     with BytesIO() as output:
         image.save(output, format=format)
