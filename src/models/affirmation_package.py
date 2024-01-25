@@ -11,7 +11,6 @@ class AffirmationPackage(TimeBaseModel):
     image_url: Optional[str] = None
     credits: int = 1
     form: List[dict]
-    answers: List[dict]
 
     class Settings:
         name = "affirmation_package"
@@ -27,6 +26,5 @@ class AffirmationPackage(TimeBaseModel):
                 "image_url": "http://website.com",
                 "credits": 1,
                 "form": {},
-                "answers": {},
             }
         }
