@@ -47,17 +47,3 @@ class CognitoData(BaseModel):
                 "data": dict(),
             }
         }
-
-
-class UserUpdateInput(BaseModel):
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    phone_number: Optional[str] = None
-    gender: Optional[UserGender] = None
-    dob: Optional[datetime] = None
-    relationship_status: Optional[RelationshipStatus] = None
-    onboarding_completed: Optional[bool] = False
-    explainer_completed: Optional[bool] = False
-    affirmation_experience_level: Optional[AffirmationExperienceLevel] = None
-    goals: Optional[List[str]] = None
-    limiting_beliefs: Optional[List[str]] = None
