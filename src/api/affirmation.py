@@ -6,12 +6,14 @@ from src.models.affirmation_listening_history import AffirmationListeningHistory
 from src.models.affirmation_package import AffirmationPackage
 from src.models.enums import TransactionSource
 from src.models.user import User
+from src.utils.affirmation import calculate_time_difference_seconds
 from src.utils.auth import verify_admin_token, verify_token
 from src.utils.credit import remove_user_credit
 from src.utils.logger import get_logger
 from fastapi import APIRouter, Depends, Query
 from fastapi import APIRouter, HTTPException, Path, status
 from src.utils.response import success_response
+from datetime import datetime
 
 router = APIRouter()
 logger = get_logger("MAIN")
@@ -34,7 +36,7 @@ async def create_affirmation(
 
     # NOTE: Test mode only
     affirmation.audio_url = "https://res.cloudinary.com/daniel-goff/video/upload/v1706271596/viuweeztmbyhfybh3pop.mp3"
-    
+
     createdAffirmation = await Affirmation.insert(affirmation)  # type: ignore
 
     if user.id:
@@ -148,6 +150,17 @@ async def create(
     affirmationListeningHistory.user = user_info  # type: ignore
     affirmationListeningHistory.affirmation = affirmation  # type: ignore
     createdAffirmationHistory = await AffirmationListeningHistory.insert(affirmationListeningHistory)  # type: ignore
+
+    # NOTE Increment affirmation statistic
+    seconds_to_increment = calculate_time_difference_seconds(
+        affirmationListeningHistory.start_at, affirmationListeningHistory.listened_until
+    )
+
+    affirmation.total_seconds_listened = affirmation.total_seconds_listened + seconds_to_increment  # type: ignore
+    affirmation.last_listened_at = datetime.now()
+
+    await affirmation.setValue(dict(affirmation))
+
     return success_response(
         createdAffirmationHistory,
         "Affirmation listening history created successfully",
@@ -162,7 +175,7 @@ async def create_afirmation_package(
 ):
     created_package = await AffirmationPackage.insert(affirmationPackage)
 
-    return success_response(
+    return success_response( 
         created_package,
         "Affirmation package created successfully",
         status.HTTP_201_CREATED,

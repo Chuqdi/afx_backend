@@ -10,7 +10,6 @@ class AffirmationListeningHistory(TimeBaseModel):
     user: Optional[Link[User]] = None
     affirmation: Optional[Link[Affirmation]] = None
     start_at: datetime
-    resumed_at: datetime
     listened_until: datetime
 
     class Settings:
@@ -18,15 +17,12 @@ class AffirmationListeningHistory(TimeBaseModel):
         projection = {
             "user": "$user._id",
             "affirmation": "$affirmation._id",
-            "resumed_at": 1,
             "listened_until": 1,
+            "created_at": 1,
+            "updated_at": 1,
         }
 
     class Config:
         json_schema_extra = {
-            "example": {
-                "start_at": datetime.now(),
-                "resumed_at": datetime.now(),
-                "listened_until": datetime.now()
-            }
+            "example": {"start_at": datetime.now(), "listened_until": datetime.now()}
         }

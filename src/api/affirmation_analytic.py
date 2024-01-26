@@ -83,11 +83,11 @@ async def get_chart_information(user: User = Depends(verify_token)):
     chart_info = {}
 
     for affirmation in affirmations:
-        if affirmation.completed_at:
-            completed_date = affirmation.completed_at.date()
-            year_str = str(completed_date.year)
-            week_str = completed_date.strftime("%U")
-            day_str = completed_date.strftime("%a").lower()
+        if affirmation.created_at:
+            created_at = affirmation.created_at.date()
+            year_str = str(created_at.year)
+            week_str = created_at.strftime("%U")
+            day_str = created_at.strftime("%a").lower()
 
             chart_info.setdefault(year_str, {}).setdefault(week_str, {}).setdefault(
                 day_str, 0

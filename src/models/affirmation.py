@@ -19,6 +19,7 @@ class Affirmation(TimeBaseModel):
     last_listened_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
     starred: bool = False
+
     class Settings:
         name = "affirmation"
         projection = {
@@ -32,6 +33,8 @@ class Affirmation(TimeBaseModel):
             "last_listened_at": 1,
             "completed_at": 1,
             "starred": 1,
+            "created_at": 1,
+            "updated_at": 1,
         }
 
     class Config:
