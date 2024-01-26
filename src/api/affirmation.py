@@ -31,6 +31,10 @@ async def create_affirmation(
 
     """Create New Affirmation Package"""
     affirmation.user = user  # type: ignore
+
+    # NOTE: Test mode only
+    affirmation.audio_url = "https://res.cloudinary.com/daniel-goff/video/upload/v1706271596/viuweeztmbyhfybh3pop.mp3"
+    
     createdAffirmation = await Affirmation.insert(affirmation)  # type: ignore
 
     if user.id:
