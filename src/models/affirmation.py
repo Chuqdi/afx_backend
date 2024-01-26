@@ -14,6 +14,7 @@ class Affirmation(TimeBaseModel):
     package: Optional[dict] = None
     state: Optional[AffirmationState] = AffirmationState.NEW
     sentences: Optional[List[str]] = None
+    audio_url: Optional[str] = None
     total_seconds_listened: int = 0
     last_listened_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
@@ -25,6 +26,7 @@ class Affirmation(TimeBaseModel):
             "type": 1,
             "package": 1,
             "state": 1,
+            "audio_url": 1,
             "sentences": 1,
             "total_seconds_listened": 1,
             "last_listened_at": 1,
