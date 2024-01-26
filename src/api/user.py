@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from src.models.user import User, UserUpdateInput
+from src.models.user import User
 from src.utils.auth import verify_token
 from src.utils.logger import get_logger
 from src.utils.response import success_response
@@ -35,11 +35,11 @@ s3_client = boto3_client(
 
 
 @router.put("/")
-async def update_user(payload: UserUpdateInput, user: User = Depends(verify_token)):
-    await user.setValue(dict(payload))
+async def update_user(payload: dict, user: User = Depends(verify_token)):
+    await user.setValue(payload)
 
     return success_response(
-        data=None,
+        data=user,
         message="User information updated successfully",
     )
 
@@ -58,7 +58,7 @@ async def get_user(current_user: User = Depends(verify_token)):
 
 
 @router.post(
-    "/profile-image", 
+    "/profile-image",
     response_model=User,
     response_model_exclude={
         "cognito_user_data",
