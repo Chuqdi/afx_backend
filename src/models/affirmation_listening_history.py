@@ -17,6 +17,7 @@ class AffirmationListeningHistory(TimeBaseModel):
         projection = {
             "user": "$user._id",
             "affirmation": "$affirmation._id",
+            "start_at": 1,
             "listened_until": 1,
             "created_at": 1,
             "updated_at": 1,
