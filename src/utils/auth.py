@@ -11,6 +11,7 @@ client = boto3.client("cognito-idp", region_name=COGNITO_REGION)
 
 # Function to verify JWT tokens
 async def verify_token(token: str = Depends(oauth2_scheme)):
+    print("Here")
     try:
         response = client.get_user(AccessToken=token)
         # Token is valid, you can access user information in response['UserAttributes']

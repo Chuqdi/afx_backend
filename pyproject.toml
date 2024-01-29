@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["krashennikov <anton@polarfrequency.com>"]
 readme = "README.md"
-packages = [{include = "sf_backend"}]
+packages = [{include = "backend"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -29,6 +29,7 @@ httpx = "^0.25.2"
 pydub = "^0.25.1"
 aiohttp = "^3.9.1"
 aiofiles = "^23.2.1"
+cryptography = "^42.0.1"
 
 
 [build-system]
