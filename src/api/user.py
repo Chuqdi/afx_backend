@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException
 from src.models.user import User
 from src.utils.auth import verify_token
 from src.utils.logger import get_logger
@@ -46,23 +46,16 @@ async def update_user(payload: dict, user: User = Depends(verify_token)):
 
 @router.get(
     "/",
-    # response_model=User,
-    # response_model_exclude={
-    #     "cognito_user_data",
-    #     "revision_id",
-    #     "id",
-    # },
+    response_model=User,
+    response_model_exclude={
+        "cognito_user_data",
+        "revision_id",
+        "id",
+    },
 )
-##current_user: User = Depends(verify_token)
-async def get_user(request: Request):
-    user_agent = request.headers.get("user-agent")
-    authorization = request.headers.get("authorization")
-    referer = request.headers.get("referer")
-    
-    print(f"User-Agent: {user_agent}")
-    print(f"Authorization: {authorization}")
-    print(f"Referer: {referer}")
-    return "current_user"
+
+async def get_user(current_user: User = Depends(verify_token)):
+    return current_user
 
 
 @router.post(

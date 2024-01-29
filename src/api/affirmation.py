@@ -29,28 +29,29 @@ async def create_affirmation(
 ):
     credits_to_remove = affirmation.package.get("credits", 1)  # type: ignore
     # Check credit
-    if user.credits < credits_to_remove:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Insufficient credits"
-        )
+    # if user.credits < credits_to_remove:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_400_BAD_REQUEST, detail="Insufficient credits"
+    #     )
 
     """Create New Affirmation Package"""
     affirmation.user = user  # type: ignore
 
     # NOTE: Test mode only
     affirmation.audio_url = "https://res.cloudinary.com/daniel-goff/video/upload/v1706271596/viuweeztmbyhfybh3pop.mp3"
-
     affirmation.sentences = generate_random_sentences(4)
 
     createdAffirmation = await Affirmation.insert(affirmation)  # type: ignore
 
-    if user.id:
-        # Deduct the required credits from the user's account
-        await remove_user_credit(
-            user.id,
-            int(credits_to_remove),
-            source=TransactionSource.AFFIRMATION,
-        )  # type: ignore
+    print(createdAffirmation)
+    print("post inster")
+    # if user.id:
+    #     # Deduct the required credits from the user's account
+    #     await remove_user_credit(
+    #         user.id,
+    #         int(credits_to_remove),
+    #         source=TransactionSource.AFFIRMATION,
+    #     )  # type: ignore
 
     return success_response(
         createdAffirmation,
@@ -209,7 +210,7 @@ async def get_affirmation_packages():
 
 # Background Sounds
 @router.get("/background-sounds")
-async def get_affirmation_background_sounds(_: User = Depends(verify_token)):
+async def get_affirmation_background_sounds():
     try:
         current_directory = os.path.dirname(os.path.realpath(__file__))
         json_file_path = os.path.join(
@@ -234,7 +235,7 @@ async def get_affirmation_background_sounds(_: User = Depends(verify_token)):
 
 # Voices
 @router.get("/voices")
-async def get_affirmation_voices(_: User = Depends(verify_token)):
+async def get_affirmation_voices():
     try:
         current_directory = os.path.dirname(os.path.realpath(__file__))
         json_file_path = os.path.join(
