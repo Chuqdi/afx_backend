@@ -145,7 +145,7 @@ async def delete_affirmation_by_id(
 
 @router.post("/listening-history/{affirmation_id}")
 async def create(
-    affirmationListeningHistory: AffirmationListeningHistory,
+    affirmation_listening_history: AffirmationListeningHistory,
     affirmation_id: str = Path(..., description="ID of the Affirmation "),
     user_info: User = Depends(verify_token),
 ):
@@ -161,13 +161,13 @@ async def create(
             detail="Affirmation  not found",
         )
 
-    affirmationListeningHistory.user = user_info  # type: ignore
-    affirmationListeningHistory.affirmation = affirmation  # type: ignore
-    createdAffirmationHistory = await AffirmationListeningHistory.insert(affirmationListeningHistory)  # type: ignore
+    affirmation_listening_history.user = user_info  # type: ignore
+    affirmation_listening_history.affirmation = affirmation  # type: ignore
+    createdAffirmationHistory = await AffirmationListeningHistory.insert(affirmation_listening_history)  # type: ignore
 
     # NOTE Increment affirmation statistic
     seconds_to_increment = calculate_time_difference_seconds(
-        affirmationListeningHistory.start_at, affirmationListeningHistory.listened_until
+        affirmation_listening_history.start_at, affirmation_listening_history.listened_until
     )
 
     affirmation.total_seconds_listened = affirmation.total_seconds_listened + seconds_to_increment  # type: ignore
