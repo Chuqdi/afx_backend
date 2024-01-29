@@ -3,13 +3,10 @@ from datetime import datetime
 from src.models.enums import AffirmationState, AffirmationType
 from src.models.time_base_model import TimeBaseModel
 from typing import List, Optional
-from beanie import Link
-
-from src.models.user import User
 
 
 class Affirmation(TimeBaseModel):
-    user: Optional[Link[User]] = None
+    user: Optional[dict] = None
     type: Optional[AffirmationType] = None
     package: Optional[dict] = None
     state: Optional[AffirmationState] = AffirmationState.NEW
@@ -23,7 +20,7 @@ class Affirmation(TimeBaseModel):
     class Settings:
         name = "affirmation"
         projection = {
-            "user": "$user._id",
+            "user": 1,
             "type": 1,
             "package": 1,
             "state": 1,
