@@ -108,20 +108,21 @@ async def get_affirmations(
 
 @router.put("/{id}")
 async def update_affirmation_by_id(
-    new_values: Affirmation,
+    new_values: dict,
     id: str = Path(..., description="ID of the affirmation"),
     user: User = Depends(verify_token),
 ):
     """Update Affirmation by ID"""
     affirmation = await Affirmation.find_one(
         {"user.sub_id": user.sub_id, "_id": ObjectId(id)},
+        fetch_links=True,
     )
     if not affirmation:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Affirmation not found",
         )
-    await affirmation.setValue(dict(new_values))
+    await affirmation.setValue(new_values)
     return success_response(message="Affirmation  updated successfully")
 
 
@@ -133,6 +134,7 @@ async def delete_affirmation_by_id(
     """Delete Affirmation by ID"""
     affirmation = await Affirmation.find_one(
         {"user.sub_id": user.sub_id, "_id": ObjectId(id)},
+        fetch_links=True,
     )
     if not affirmation:
         raise HTTPException(
