@@ -15,7 +15,7 @@ from src.utils.credit import remove_user_credit
 from src.utils.logger import get_logger
 from fastapi import APIRouter, Depends, Query
 from fastapi import APIRouter, HTTPException, Path, status
-from src.utils.response import success_response
+from src.utils.response import paginate_response, success_response
 from datetime import datetime
 
 router = APIRouter()
@@ -108,20 +108,21 @@ async def get_affirmations(
 
 @router.put("/{id}")
 async def update_affirmation_by_id(
-    new_values: Affirmation,
+    new_values: dict,
     id: str = Path(..., description="ID of the affirmation"),
     user: User = Depends(verify_token),
 ):
     """Update Affirmation by ID"""
     affirmation = await Affirmation.find_one(
         {"user.sub_id": user.sub_id, "_id": ObjectId(id)},
+        fetch_links=True,
     )
     if not affirmation:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Affirmation not found",
         )
-    await affirmation.setValue(dict(new_values))
+    await affirmation.setValue(new_values)
     return success_response(message="Affirmation  updated successfully")
 
 
@@ -133,6 +134,7 @@ async def delete_affirmation_by_id(
     """Delete Affirmation by ID"""
     affirmation = await Affirmation.find_one(
         {"user.sub_id": user.sub_id, "_id": ObjectId(id)},
+        fetch_links=True,
     )
     if not affirmation:
         raise HTTPException(
@@ -143,8 +145,70 @@ async def delete_affirmation_by_id(
     return success_response(message="Affirmation  deleted successfully")
 
 
+@router.get("/listening-history/{affirmation_id}")
+async def get_affirmation_listening_history(
+    affirmation_id: str = Path(..., description="ID of the affirmation"),
+    user: User = Depends(verify_token),
+    page: int = Query(1, alias="page", description="Page number", ge=0),
+    limit: int = Query(10, le=100, description="Items per page"),
+):
+    """Fetch all user's affirmation listening history with pagination"""
+    resource_name = f"/listening-history/{affirmation_id}"
+    start = (page - 1) * limit
+    end = start + limit
+
+    user_sub_id = user.sub_id if user else None
+    search_filter = {
+        "user.sub_id": user_sub_id,
+        "affirmation._id": ObjectId(affirmation_id),
+    }
+
+    list = (
+        await AffirmationListeningHistory.find(
+            search_filter,
+            fetch_links=True,
+        )
+        .sort("-created_at", "-updated_at")
+        .to_list()
+    )
+
+    response = paginate_response(list, start, end, page, limit, resource_name)
+
+    return success_response(
+        response, "Affirmation listening history fetched successfully"
+    )
+
+
+@router.get("/user-listening-history")
+async def get_user_listening_history(
+    user: User = Depends(verify_token),
+    page: int = Query(1, alias="page", description="Page number", ge=0),
+    limit: int = Query(10, le=100, description="Items per page"),
+):
+    """Fetch all user's listening history with pagination"""
+    resource_name = f"/user-listening-history"
+    start = (page - 1) * limit
+    end = start + limit
+
+    user_sub_id = user.sub_id if user else None
+    search_filter = {"user.sub_id": user_sub_id}
+
+    list = (
+        await AffirmationListeningHistory.find(
+            search_filter,
+            fetch_links=True,
+        )
+        .sort("-created_at", "-updated_at")
+        .to_list()
+    )
+
+    response = paginate_response(list, start, end, page, limit, resource_name)
+
+    return success_response(response, "User listening history fetched successfully")
+
+
 @router.post("/listening-history/{affirmation_id}")
-async def create(
+async def create_afirmation_listening_history(
     affirmation_listening_history: AffirmationListeningHistory,
     affirmation_id: str = Path(..., description="ID of the Affirmation "),
     user_info: User = Depends(verify_token),
@@ -167,7 +231,8 @@ async def create(
 
     # NOTE Increment affirmation statistic
     seconds_to_increment = calculate_time_difference_seconds(
-        affirmation_listening_history.start_at, affirmation_listening_history.listened_until
+        affirmation_listening_history.start_at,
+        affirmation_listening_history.listened_until,
     )
 
     affirmation.total_seconds_listened = affirmation.total_seconds_listened + seconds_to_increment  # type: ignore
